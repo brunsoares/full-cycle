@@ -1,0 +1,24 @@
+FROM nginx:latest
+
+# Informando a pasta de trabalho
+WORKDIR /app
+
+# Executando comandos
+RUN apt-get update && \
+    apt-get install vim -y
+
+# Copiando arquivos para o container (pasta html para o diretório padrão do Nginx)
+COPY html /usr/share/nginx/html
+
+# Executando comando para printar mensagem
+CMD ["echo", "Container Nginx iniciado com sucesso!"]
+
+# Executando comando - Fixo
+ENTRYPOINT ["echo", "Hello"]
+# Executando comando - Variável (Anterior não será executado)
+CMD ["World"]
+# Se passarmos argumentos na hora de executar o container 
+## O CMD será sobrescrito e o ENTRYPOINT será executado com os argumentos passados.
+
+# Expondo a porta 80 do container
+EXPOSE 80

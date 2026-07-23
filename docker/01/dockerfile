@@ -1,0 +1,9 @@
+# Imagem base do Nginx para criação da imagem própria
+FROM nginx:latest
+
+# Comandos que serão executados durante a construção da imagem
+RUN apt-get update
+RUN apt-get install vim -y
+
+# Comando para buildar a imagem
+# docker build -t user/nginx-custom ./<pasta onde está o Dockerfile>
