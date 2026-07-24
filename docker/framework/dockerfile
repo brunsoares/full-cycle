@@ -1,0 +1,28 @@
+FROM node
+
+# Atualiza o sistema operacional
+RUN apt-get update && apt-get upgrade -y
+
+# Cria o diretório de instalação do framework
+RUN mkdir -p /var/www
+
+# Setando o diretório de trabalho
+WORKDIR /var/www
+
+# Instalação do framework
+RUN npm install -g @angular/cli
+
+# Verifica a versão do Angular CLI instalada
+RUN ng version
+
+# Criando projeto padrão angular - Resposta automática para todas as perguntas = N
+RUN yes N | ng new my-app --defaults
+
+# Setando o diretório de trabalho para o projeto criado
+WORKDIR /var/www/my-app
+
+# Expondo a porta 4200 do container para o docker run -p 4200:4200
+EXPOSE 4200
+
+# Executando o projeto após a criação da imagem
+ENTRYPOINT ["ng", "serve", "--host", "0.0.0.0"]

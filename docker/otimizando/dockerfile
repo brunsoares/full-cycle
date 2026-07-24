@@ -1,0 +1,46 @@
+## Build - PARTE 1 -> Criação do projeto Angular
+FROM node AS builder
+
+# Atualiza o sistema operacional
+RUN apt-get update && apt-get upgrade -y
+
+# Cria o diretório de instalação do framework
+RUN mkdir -p /var/www
+
+# Setando o diretório de trabalho
+WORKDIR /var/www
+
+# Instalação do framework
+RUN npm install -g @angular/cli
+
+# Verifica a versão do Angular CLI instalada
+RUN ng version
+
+# Criando projeto padrão angular - Resposta automática para todas as perguntas = N
+RUN yes N | ng new my-app --defaults
+
+# Setando o diretório de trabalho para o projeto criado
+WORKDIR /var/www/my-app
+
+# Expondo a porta 4200 do container para o docker run -p 4200:4200
+EXPOSE 4200
+
+## Build - PARTE 2 -> Otimização da imagem final
+# Segunda etapa: Criando uma imagem final mais leve baseada em Alpine 
+FROM node:alpine
+
+# Setando o diretório de trabalho
+WORKDIR /var/www
+
+# Copiando o projeto criado na etapa de build para a imagem final
+COPY --from=builder /var/www/my-app /var/www/my-app
+
+# Permissões
+RUN chown -R node:node /var/www/my-app
+
+# Setando o diretório de trabalho para o projeto copiado
+WORKDIR /var/www/my-app
+
+# Executando o projeto após a criação da imagem
+ENTRYPOINT ["ng", "serve", "--host", "0.0.0.0"]
+
