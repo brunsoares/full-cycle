@@ -1,0 +1,31 @@
+# Definição dos serviços
+services:
+  angular:
+    # Olhando a partir do build
+    build:
+      context: ./framework
+      dockerfile: Dockerfile
+    # Gera uma imagem com o nome especificado
+    image: brunsoares/angular
+    container_name: angular_app
+    networks:
+      - testenet
+    ports:
+      - '4200:4200'
+
+  nginx:
+    build:
+      context: ./modelo-dockerfile
+      dockerfile: Dockerfile
+    image: brunsoares/nginx_custom
+    container_name: nginx_server
+    networks:
+      - testenet
+
+# Definição da rede
+networks:
+  testenet:
+    driver: bridge
+
+# Comando para executar o docker compose
+# docker-compose up -d

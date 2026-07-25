@@ -1,0 +1,24 @@
+services:
+  db:
+    image: mysql:8.0
+    # Comandos executados no container
+    command: --innodb-use-native-aio=0
+    container_name: db_mysql
+    # Caso o container pare, ele será reiniciado automaticamente
+    restart: always
+    # Permite que o container seja executado em modo interativo
+    tty: true
+    # Monta um volume para persistência de dados
+    volumes:
+      - ./mysql:/var/lib/mysql
+    # Define variáveis de ambiente para configuração do MySQL
+    environment:
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=sa
+      - MYSQL_PASSWORD=pass
+    networks:
+      - testenet
+
+networks:
+  testenet:
+    driver: bridge
