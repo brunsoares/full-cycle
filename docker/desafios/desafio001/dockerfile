@@ -14,5 +14,3 @@ FROM scratch
 
 COPY --from=builder /src/build/main /main
 CMD ["/main"]
-
-#Link DockerHUB: https://hub.docker.com/repository/docker/brunsoares/golang-custom/general
