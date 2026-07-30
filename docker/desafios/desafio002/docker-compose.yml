@@ -14,6 +14,9 @@ services:
       dockerfile: dockerfile
     image: brunsoares/node_api
     container_name: app
+    volumes:
+      - ./node:/var/www
+      - node_modules:/var/www/node_modules
     depends_on:
       - db
   db:
@@ -26,3 +29,6 @@ services:
       - MYSQL_USER=sa
       - MYSQL_ROOT_PASSWORD=pass
       - MYSQL_PASSWORD=pass
+
+volumes:
+  node_modules:
