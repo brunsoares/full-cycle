@@ -1,0 +1,61 @@
+# Compiled Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+
+# Build directories
+/bin/
+/build/
+/target/
+/out/
+/dist/
+
+# IDE and Editor configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.classpath
+.project
+.settings/
+*.iml
+*.iws
+*.ipr
+
+# Maven
+dependency-reduced-pom.xml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# OS specific
+.DS_Store
+Thumbs.db
+.windows-build-tools
+.cache/
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+.temp/
+
+# IDE run configurations
+*.launch
+
+# Package Files
+*.nar
