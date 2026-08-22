@@ -38,4 +38,12 @@ export class Product {
 	get price(): number {
 		return this._price;
 	}
+
+	get name(): string {
+		return this._name;
+	}
+
+	get id(): string {
+		return this._id;
+	}
 }

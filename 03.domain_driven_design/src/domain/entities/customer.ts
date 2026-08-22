@@ -118,4 +118,16 @@ export class Customer {
 	get id(): string {
 		return this._id;
 	}
+
+	get address(): Address {
+		return this._address;
+	}
+
+	get active(): boolean {
+		return this._active;
+	}
+
+	get rewardPoints(): number {
+		return this._rewardPoints;
+	}
 }

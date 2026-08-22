@@ -23,7 +23,6 @@
 
 		// Stricter Typechecking Options
 		"noUncheckedIndexedAccess": true,
-		"exactOptionalPropertyTypes": true,
 
 		// Style Options
 		// "noImplicitReturns": true,
@@ -40,7 +39,12 @@
 		"isolatedModules": true,
 		"noUncheckedSideEffectImports": true,
 		"moduleDetection": "force",
-		"skipLibCheck": true
+		"skipLibCheck": true,
+
+		// Typescript confis
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"strictNullChecks": false
 	},
 	"include": ["src/**/*.ts"]
 }

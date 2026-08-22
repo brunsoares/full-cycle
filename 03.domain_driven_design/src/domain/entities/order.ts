@@ -42,4 +42,16 @@ export class Order {
 		}
 		return true;
 	}
+
+	get id(): string {
+		return this._id;
+	}
+
+	get customerId(): string {
+		return this._customerId;
+	}
+
+	get items(): OrderItems[] {
+		return this._items;
+	}
 }
