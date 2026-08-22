@@ -34,4 +34,8 @@ export class Product {
 		console.log(`Preço do produto alterado para: ${this._price}`);
 		this.validate();
 	}
+
+	get price(): number {
+		return this._price;
+	}
 }

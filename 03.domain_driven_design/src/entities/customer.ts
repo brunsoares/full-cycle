@@ -15,6 +15,7 @@ export class Customer {
 	private _name: string;
 	private _address: Address = {} as Address;
 	private _active: boolean = false;
+	private _rewardPoints: number = 0;
 
 	/**
 	 * Construtor da entidade Customer
@@ -94,7 +95,27 @@ export class Customer {
 		return true;
 	}
 
+	addRewardPoints(points: number): void {
+		// Poderia executar alguma regra de negócio aqui para adicionar pontos de recompensa
+		console.log(
+			`Adicionando ${points} pontos de recompensa para o cliente ${this._name}`,
+		);
+		this._rewardPoints += points;
+	}
+
+	checkRewardPoints(): number {
+		// Poderia executar alguma regra de negócio aqui para verificar os pontos de recompensa
+		console.log(
+			`Cliente ${this._name} possui ${this._rewardPoints} pontos de recompensa`,
+		);
+		return this._rewardPoints;
+	}
+
 	get name(): string {
 		return this._name;
+	}
+
+	get id(): string {
+		return this._id;
 	}
 }

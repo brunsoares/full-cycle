@@ -62,4 +62,16 @@ describe('Customer unit tests', () => {
 		customer.deactivate();
 		expect(customer.checkStatus()).toBe(false);
 	});
+
+	/**
+	 * Checa se os pontos de recompensa do cliente são adicionados corretamente
+	 */
+	it('should add reward points', () => {
+		const customer = new Customer('123', 'John Doe');
+		expect(customer.checkRewardPoints()).toBe(0);
+		customer.addRewardPoints(10);
+		expect(customer.checkRewardPoints()).toBe(10);
+		customer.addRewardPoints(20);
+		expect(customer.checkRewardPoints()).toBe(30);
+	});
 });
