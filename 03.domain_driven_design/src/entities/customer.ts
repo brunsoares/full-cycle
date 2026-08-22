@@ -10,22 +10,20 @@ import Address from './address';
  * 		sempre deve ser autovalidada, ou seja, não deve ser possível criar uma entidade inconsistente
  *
  */
-class Customer {
+export class Customer {
 	private _id: string;
 	private _name: string;
-	private _address: Address;
+	private _address: Address = {} as Address;
 	private _active: boolean = false;
 
 	/**
 	 * Construtor da entidade Customer
 	 * @param id - ID do cliente
 	 * @param name - Nome do cliente
-	 * @param address - Endereço do cliente
 	 */
-	constructor(id: string, name: string, address: Address) {
+	constructor(id: string, name: string) {
 		this._id = id;
 		this._name = name;
-		this._address = address;
 		this.validate(); // Valida a entidade ao ser criada
 	}
 
@@ -43,9 +41,7 @@ class Customer {
 	/** Exemplos de métodos voltados para regras de negócio */
 	changeAddress(newAddress: Address): void {
 		// Poderia executar alguma regra de negócio aqui antes de alterar o endereço
-		console.log(
-			`Endereço do cliente ${this._name} alterado de ${this._address.checkAddress()} para ${newAddress.checkAddress()}`,
-		);
+		console.log(`Endereço do cliente ${this._name} alterado`);
 		this._address = newAddress;
 		this.validate(); // Valida a entidade após alterar o endereço
 	}
@@ -59,7 +55,7 @@ class Customer {
 
 	activate(): void {
 		// Poderia executar alguma regra de negócio aqui antes de ativar o cliente
-		if (this.validate()) {
+		if (this.validate() && this.validateAddress()) {
 			console.log(`Cliente ${this._name} ativado`);
 			this._active = true;
 		}
@@ -81,12 +77,24 @@ class Customer {
 
 	validate(): boolean {
 		// Poderia executar alguma regra de negócio aqui para validar a entidade
-		if (!this._name || !this._address) {
-			throw new Error('Nome e endereço são obrigatórios');
+		if (!this._name) {
+			throw new Error('Nome é obrigatório');
 		}
 		if (!this._id) {
 			throw new Error('ID é obrigatório');
 		}
 		return true;
+	}
+
+	validateAddress(): boolean {
+		// Poderia executar alguma regra de negócio aqui para validar o endereço
+		if (Object.keys(this._address).length === 0) {
+			throw new Error('Endereço é obrigatório para ativar o cliente');
+		}
+		return true;
+	}
+
+	get name(): string {
+		return this._name;
 	}
 }
