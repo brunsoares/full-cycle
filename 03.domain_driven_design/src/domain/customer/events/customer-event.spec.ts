@@ -1,12 +1,10 @@
 import { describe, expect, it, jest } from '@jest/globals';
-import { EventDispatcher } from '../../shared/events/event-dispatcher';
 import { EnviaConsoleLog1Handler } from './handler/envia-consolelog-1.handle';
-import { EnviaConsoleLog2Handler } from './handler/envia-consolog-2.handle';
-import { CustomerCreatedEvent } from './customer-created.event';
-import { Customer } from '../entities/customer';
-import Address from '../entities/address';
 import { EnviaConsoleLogHandle } from './handler/envia-consolelog-handle';
-import { CustomerAddressChangedEvent } from './customer-address-changed.event';
+import { EnviaConsoleLog2Handler } from './handler/envia-consolog-2.handle';
+import { EventDispatcher } from '../../shared/events/event-dispatcher';
+import Address from '../entities/address';
+import { Customer } from '../entities/customer';
 
 describe('Client Events Dispatcher unit tests', () => {
 	it('should notify when a customer is created and execute the registered handlers', () => {
@@ -30,12 +28,13 @@ describe('Client Events Dispatcher unit tests', () => {
 			eventDispatcher.getEventHandlers['CustomerCreatedEvent'].length,
 		).toBe(2);
 
-		// Criando cliente e evento de criação de cliente
+		// No momento da criação do cliente, o evento de criação é armazenado
 		const customer = new Customer('1', 'John Doe');
-		const customerCreatedEvent = new CustomerCreatedEvent(customer);
 
-		// Ao notificar o evento, o handler deve ser chamado e o console.log deve ser executado
-		eventDispatcher.notify(customerCreatedEvent);
+		// Executando eventos do cliente
+		customer.events.forEach((event) => {
+			eventDispatcher.notify(event);
+		});
 
 		// Checando se os handlers foram chamados
 		expect(spyEventHandler1).toHaveBeenCalled();
@@ -63,12 +62,12 @@ describe('Client Events Dispatcher unit tests', () => {
 		// Criando cliente e vinculando um endereço
 		const customer = new Customer('1', 'John Doe');
 		const newAddress = new Address('123 Main St', 'City', 'State', '12345');
+		// No momento da mudança de endereço, o evento de mudança de endereço é armazenado
 		customer.changeAddress(newAddress);
-		// Criando evento de mudança de endereço
-		const addressChangedEvent = new CustomerAddressChangedEvent(customer);
 
-		// Ao notificar o evento, o handler deve ser chamado e o console.log deve ser executado
-		eventDispatcher.notify(addressChangedEvent);
+		customer.events.forEach((event) => {
+			eventDispatcher.notify(event);
+		});
 
 		// Checando se os handlers foram chamados
 		expect(spyEventHandlerAddress).toHaveBeenCalled();

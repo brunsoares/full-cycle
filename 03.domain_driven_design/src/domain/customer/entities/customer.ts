@@ -1,3 +1,6 @@
+import { AggregateRoot } from '../../shared/events/aggregate-root';
+import { CustomerAddressChangedEvent } from '../events/customer-address-changed.event';
+import { CustomerCreatedEvent } from '../events/customer-created.event';
 import Address from './address';
 
 /**
@@ -10,7 +13,7 @@ import Address from './address';
  * 		sempre deve ser autovalidada, ou seja, não deve ser possível criar uma entidade inconsistente
  *
  */
-export class Customer {
+export class Customer extends AggregateRoot {
 	private _id: string;
 	private _name: string;
 	private _address: Address = {} as Address;
@@ -23,9 +26,13 @@ export class Customer {
 	 * @param name - Nome do cliente
 	 */
 	constructor(id: string, name: string) {
+		super();
 		this._id = id;
 		this._name = name;
-		this.validate(); // Valida a entidade ao ser criada
+		// Valida a entidade ao ser criada
+		if (this.validate()) {
+			this.addEvent(new CustomerCreatedEvent(this)); // Adiciona o evento de criação do cliente
+		}
 	}
 
 	/** Exemplo de construtor que não possui regras de negócio, apenas inicializa os atributos
@@ -44,7 +51,10 @@ export class Customer {
 		// Poderia executar alguma regra de negócio aqui antes de alterar o endereço
 		console.log(`Endereço do cliente ${this._name} alterado`);
 		this._address = newAddress;
-		this.validate(); // Valida a entidade após alterar o endereço
+		// Valida a entidade após alterar o endereço
+		if (this.validate()) {
+			this.addEvent(new CustomerAddressChangedEvent(this)); // Adiciona o evento de mudança de endereço
+		}
 	}
 
 	changeName(newName: string): void {
