@@ -1,7 +1,7 @@
 import Address from './domain/entities/address';
 import { Customer } from './domain/entities/customer';
-import { Order } from './domain/entities/order';
-import { OrderItems } from './domain/entities/order-items';
+import { Order } from './domain/checkout/entities/order';
+import { OrderItems } from './domain/checkout/entities/order-items';
 
 /** Fluxo de criação de um cliente com endereço e ativação do cliente */
 // Criamos o cliente sem endereço
