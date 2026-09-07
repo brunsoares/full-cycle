@@ -1,9 +1,10 @@
 import { ProductInterface } from './product.interface';
 
-export class Product implements ProductInterface {
+export class OtherProduct implements ProductInterface {
 	private _id: string;
 	private _name: string;
 	private _price: number;
+	private _category: string;
 
 	constructor(id: string, name: string, price: number) {
 		this._id = id;
@@ -37,12 +38,21 @@ export class Product implements ProductInterface {
 		this.validate();
 	}
 
+	changeCategory(category: string): void {
+		this._category = category;
+		console.log(`Categoria do produto alterada para: ${this._category}`);
+	}
+
 	get price(): number {
 		return this._price;
 	}
 
 	get name(): string {
 		return this._name;
+	}
+
+	get category(): string {
+		return this._category;
 	}
 
 	get id(): string {

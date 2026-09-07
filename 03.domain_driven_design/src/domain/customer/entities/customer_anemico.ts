@@ -1,17 +1,18 @@
+import { CustomerInterface } from './customer.interface';
+
 /**
  * Exemplo de classe voltada para o modelo anêmico, que não possui comportamentos, apenas atributos.
  * Voltado para persistência de dados, sem regras de negócio.
  */
-class Customer {
+export class CustomerAnemico implements CustomerInterface {
 	private _id: string;
 	private _name: string;
 	private _address: string;
 	private _active: boolean = false;
 
-	constructor(id: string, name: string, address: string) {
+	constructor(id: string, name: string) {
 		this._id = id;
 		this._name = name;
-		this._address = address;
 	}
 
 	/** Exemplos de métodos genéricos apenas para mudança de estado do atributo, sem regra de negocio */

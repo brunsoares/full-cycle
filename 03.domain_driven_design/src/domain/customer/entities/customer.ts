@@ -2,6 +2,7 @@ import { AggregateRoot } from '../../shared/events/aggregate-root';
 import { CustomerAddressChangedEvent } from '../events/customer-address-changed.event';
 import { CustomerCreatedEvent } from '../events/customer-created.event';
 import Address from './address';
+import { CustomerInterface } from './customer.interface';
 
 /**
  * Exemplo de classe não anêmica, que possui comportamentos, e não apenas atributos.
@@ -13,7 +14,7 @@ import Address from './address';
  * 		sempre deve ser autovalidada, ou seja, não deve ser possível criar uma entidade inconsistente
  *
  */
-export class Customer extends AggregateRoot {
+export class Customer extends AggregateRoot implements CustomerInterface {
 	private _id: string;
 	private _name: string;
 	private _address: Address = {} as Address;
