@@ -5,6 +5,8 @@ public interface ProductServiceImpl {
 
     ProductImpl create(String name, double price);
 
+    ProductImpl save(ProductImpl product);
+
     ProductImpl enable(ProductImpl product);
 
     ProductImpl disable(ProductImpl product);

@@ -31,6 +31,16 @@ public class ProductService implements ProductServiceImpl {
     }
 
     @Override
+    public ProductImpl save(ProductImpl product) {
+        try {
+            product.isValid();
+            return this.productPersistence.save(product);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public ProductImpl enable(ProductImpl product) {
         try {
             product.enable();

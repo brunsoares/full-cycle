@@ -75,4 +75,21 @@ public class ProductTest {
             Assert.assertEquals("Price must be greater than or equal to zero", e.getMessage());
         }
     }
+
+    @Test
+    public void shouldChangePrice() throws Exception {
+        Product product = new Product("123", "Product 1", 10.0);
+        product.changePrice(20.0);
+        Assert.assertEquals(20.0, product.getPrice(), 0.0);
+    }
+
+    @Test
+    public void shouldNotChangePriceToNegativeValue() {
+        Product product = new Product("123", "Product 1", 10.0);
+        try {
+            product.changePrice(-1.0);
+        } catch (Exception e) {
+            Assert.assertEquals("Price must be greater than or equal to zero", e.getMessage());
+        }
+    }
 }

@@ -46,6 +46,14 @@ public class Product implements ProductImpl {
     }
 
     @Override
+    public void changePrice(double price) throws Exception {
+        if (price < 0) {
+            throw new Exception("Price must be greater than or equal to zero");
+        }
+        this.price = price;
+    }
+
+    @Override
     public String getID() {
         return this.id;
     }

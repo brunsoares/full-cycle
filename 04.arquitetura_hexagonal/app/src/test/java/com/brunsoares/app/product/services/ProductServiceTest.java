@@ -74,6 +74,29 @@ public class ProductServiceTest {
     }
 
     @Test
+    public void shouldUpdateProduct() throws Exception {
+        ProductService productService = new ProductService(this.productPersistence);
+        Product product = new Product("123", "Product 1", 10.0);
+
+        // Chame o método save do ProductService
+        productService.save(product);
+
+        product.changePrice(0);
+        product.disable();
+
+        // Guarda o do argumento capturado no verify
+        ArgumentCaptor<ProductImpl> productCaptor = ArgumentCaptor.forClass(ProductImpl.class);
+
+        // Verificações do persistence - Interação com o mock
+        verify(this.productPersistence).save(productCaptor.capture());
+
+        // Verificações do persistence - Valores
+        assertEquals("123", productCaptor.getValue().getID());
+        assertEquals("Product 1", productCaptor.getValue().getName());
+        assertEquals(0, productCaptor.getValue().getPrice(), 0.0);
+    }
+
+    @Test
     public void shouldEnableProduct() {
         ProductService productService = new ProductService(this.productPersistence);
         Product product = new Product("123", "Product 1", 10.0);

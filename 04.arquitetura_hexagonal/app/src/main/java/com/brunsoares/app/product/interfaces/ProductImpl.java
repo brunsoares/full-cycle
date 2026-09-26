@@ -9,6 +9,8 @@ public interface ProductImpl {
 
     void disable() throws Exception;
 
+    void changePrice(double price) throws Exception;
+
     String getID();
 
     String getName();
