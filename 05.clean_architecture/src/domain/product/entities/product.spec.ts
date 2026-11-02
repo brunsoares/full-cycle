@@ -8,7 +8,7 @@ describe('Product unit tests', () => {
 	it('should throw error when id is empty', () => {
 		expect(() => {
 			const product = new Product('', 'Product 1', 10);
-		}).toThrow('ID é obrigatório');
+		}).toThrow('product: ID é obrigatório');
 	});
 
 	/**
@@ -17,7 +17,7 @@ describe('Product unit tests', () => {
 	it('should throw error when name is empty', () => {
 		expect(() => {
 			const product = new Product('1', '', 10);
-		}).toThrow('Nome é obrigatório');
+		}).toThrow('product: Nome é obrigatório');
 	});
 
 	/**
@@ -26,7 +26,18 @@ describe('Product unit tests', () => {
 	it('should throw error when price is less than zero', () => {
 		expect(() => {
 			const product = new Product('1', 'Product 1', -10);
-		}).toThrow('Preço inválido');
+		}).toThrow('product: Preço inválido');
+	});
+
+	/**
+	 * Checa se o ID, nome e preço do produto são inválidos
+	 */
+	it('should throw error when id and name is empty', () => {
+		expect(() => {
+			const product = new Product('', '', -10);
+		}).toThrow(
+			'product: ID é obrigatório, product: Nome é obrigatório, product: Preço inválido',
+		);
 	});
 
 	/**

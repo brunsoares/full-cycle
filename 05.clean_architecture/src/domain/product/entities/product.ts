@@ -1,26 +1,40 @@
+import { Entity } from '../../entity/entity.abstract';
+import { NotificationError } from '../../notification/notification.error';
 import { ProductInterface } from './product.interface';
 
-export class Product implements ProductInterface {
-	private _id: string;
+export class Product extends Entity implements ProductInterface {
 	private _name: string;
 	private _price: number;
 
 	constructor(id: string, name: string, price: number) {
+		super();
 		this._id = id;
 		this._name = name;
 		this._price = price;
 		this.validate();
+		if (this._notification.hasErrors()) {
+			throw new NotificationError(this._notification.getErrorsList());
+		}
 	}
 
 	validate(): boolean {
 		if (this._id.length === 0) {
-			throw new Error('ID é obrigatório');
+			this._notification.addError({
+				message: 'ID é obrigatório',
+				context: 'product',
+			});
 		}
 		if (this._name.length === 0) {
-			throw new Error('Nome é obrigatório');
+			this._notification.addError({
+				message: 'Nome é obrigatório',
+				context: 'product',
+			});
 		}
 		if (this._price < 0) {
-			throw new Error('Preço inválido');
+			this._notification.addError({
+				message: 'Preço inválido',
+				context: 'product',
+			});
 		}
 		return true;
 	}
