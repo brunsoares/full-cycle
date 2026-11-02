@@ -111,4 +111,50 @@ describe('[E2E] Use case tests for Customer', () => {
 			rewardPoints: 0,
 		});
 	});
+
+	it('should list all customers in XML format', async () => {
+		// Criação
+		const responseCreate1 = await request(app)
+			.post('/customer')
+			.send({
+				name: 'Customer 1',
+				address: {
+					street: 'Street 1',
+					city: 'City 1',
+					state: 'State 1',
+					zip: '12345-678',
+				},
+			});
+
+		// Validando retorno da API
+		expect(responseCreate1.status).toBe(201); // Verifica se o status da resposta é 201 (Created)
+
+		const responseCreate2 = await request(app)
+			.post('/customer')
+			.send({
+				name: 'Customer 2',
+				address: {
+					street: 'Street 2',
+					city: 'City 2',
+					state: 'State 2',
+					zip: '23456-789',
+				},
+			});
+
+		// Validando retorno da API
+		expect(responseCreate2.status).toBe(201); // Verifica se o status da resposta é 201 (Created)
+
+		// listagem
+		const responseList = await request(app)
+			.get('/customer')
+			.set('Accept', 'application/xml') // Define o cabeçalho Accept para XML
+			.send();
+
+		// Validando retorno da API
+		expect(responseList.status).toBe(200); // Verifica se o status da resposta é 200 (OK)
+		expect(responseList.text).toContain(
+			'<?xml version="1.0" encoding="UTF-8"?>',
+		); // Verifica se a resposta contém o cabeçalho XML
+		expect(responseList.text).toContain('<customers>'); // Verifica se a resposta contém a tag de clientes'
+	});
 });
